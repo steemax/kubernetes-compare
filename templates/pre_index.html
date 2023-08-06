@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>Kubernetes Connection</title>
+    <!-- JQuery and Bootstrap JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container py-5">
+        <h2 class="mb-4">Выбор способа подключения к кластерам Kubernetes</h2>
+        <form method="POST" action="/" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label for="connectionSelect">Выберите способ подключения</label>
+                <select class="form-control" id="connectionSelect" name="connectionSelect">
+                    <option value="internal">Internal</option>
+                    <option value="home">~/.kube/config</option>
+                    <option value="external">External</option>
+                </select>
+            </div>
+            <div class="form-group" id="cluster1" style="display: none;">
+                <label for="cluster1Input">Кластер 1</label>
+                <input type="file" class="form-control-file" id="cluster1Input" name="cluster1Input">
+            </div>
+            <div class="form-group" id="cluster2" style="display: none;">
+                <label for="cluster2Input">Кластер 2</label>
+                <input type="file" class="form-control-file" id="cluster2Input" name="cluster2Input">
+            </div>
+            <button type="submit" class="btn btn-primary">Далее</button>
+        </form>
+    </div>
+    <button onclick="window.location.href='/auth/logout'" class="btn btn-primary">LogOut</button>
+    <script>
+        $(document).ready(function() {
+            $('#connectionSelect').change(function() {
+                if ($(this).val() == 'external') {
+                    $('#cluster1').show();
+                    $('#cluster2').show();
+                } else {
+                    $('#cluster1').hide();
+                    $('#cluster2').hide();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

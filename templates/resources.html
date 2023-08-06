@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Выбор неймспейсов</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h3 class="mt-4">Выберите ресурсы для сравнения в кластерах {{ .Cluster1 }} неймспейс {{ .Namespace1 }} и {{ .Cluster2 }} неймспейс {{ .Namespace2 }}</h3>
+        <form action="/compare_cluster" method="post">
+            <div class="form-group">
+                <label for="resource">{{ .Cluster1 }} Выберите тип ресурса для сравнения:</label>
+                <select id="resource" name="resource" class="form-control">
+                    {{ range .Resources }}
+                    <option value="{{ . }}">{{ . }}</option>
+                    {{ end }}
+                </select>
+            </div>
+            <input type="hidden" name="cluster1" value="{{ .Cluster1 }}">
+            <input type="hidden" name="cluster2" value="{{ .Cluster2 }}">
+            <button type="submit" class="btn btn-primary">Далее</button>
+        </form>
+        <button onclick="window.history.back();" class="btn btn-secondary mt-3">Назад</button>
+        <button onclick="window.location.href='/'" class="btn btn-primary mt-3">На главную</button>
+    </div>
+
+    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

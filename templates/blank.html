@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canary Comparison</title>
+    <!-- Подключаем Bootstrap для удобства стилизации -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Немного встроенного CSS для кастомизации -->
+    <style>
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size: 24px;
+        }
+
+        .alert {
+            padding: 20px;
+            border-radius: 5px;
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <div class="alert">
+            Не найдено ресурсов выбранного типа, для сравнения в кластерах: 
+            {{ range .Clusters }}
+            {{ .ClusterName }}/{{ .Namespace }}
+            {{ end }}
+        </div>
+    </div>
+    <!-- Подключаем jQuery и Bootstrap JS для работы некоторых компонентов Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
