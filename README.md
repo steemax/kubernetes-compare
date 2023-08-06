@@ -1,3 +1,6 @@
+![Optional Alt Text](https://github.com/steemax/kubernetes-compare/blob/main/diff1.png?raw=true)
+
+
 # Kubernetes Configuration Comparison Tool
 
 ## Overview
