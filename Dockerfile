@@ -16,6 +16,7 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 WORKDIR /home/appuser
 COPY --from=builder /app/main .
 COPY --from=builder /app/templates ./templates
+COPY --from=builder /app/conf ./conf
 
 RUN chown -R appuser:appgroup /home/appuser
 
