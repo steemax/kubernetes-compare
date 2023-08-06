@@ -1,9 +1,9 @@
 {
 	"server_port": 8080,
-    "gitlab_server": "https://ak.akharlanov.vm.prod-4.cloud.datapro",
+        "gitlab_server": "https://your_gitlab_server",
 	"gitlab_skip_tls_verify": true,
-	"client_id": "7e3e5176fe6c4835059027c52b1c862cb41147fbd9c101c6ecfa8ec6629c3c2c",
-	"client_secret": "3d6ce5b1be10d2899fa6b739d78520d8cf4490a5419faceebd6858e45ad05862",
+	"client_id": "id",
+	"client_secret": "secret",
 	"callback_url": "http://localhost:8080/auth/callback",
 	"max_age_session_token": 15,
 	"auth_group_name_allowed": "compare"
