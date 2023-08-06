@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Services Compare</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <h1 class="mb-3">Результат сравнения Services</h1> 
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Имя Кластера</th>
+                        <th>Services names</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range .Clusters }}
+                        <tr>
+                            <td>{{ .ClusterName }}</td>
+                            <td>
+                                <ul>
+                                {{ range .Services }}
+                                    <li>{{ . }}</li>
+                                {{ end }}
+                                </ul>
+                            </td>
+                        </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <div class="col-md-6">
+            <h3 style="background-color:rgb(126, 185, 236);">Не совпадающие объекты Services:</h3>
+            {{ range $cluster, $diffs := .Diffs }}
+            <h4>В {{ $cluster }}:</h4>
+            <table class="table">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Имя</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range $diffs }}
+                        <tr class="table-warning">
+                            <td>{{ . }}</td>
+                        </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+            {{ end }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h3 style="background-color:rgb(126, 185, 236);">Отличия в spec между Services (сравниваем только Services с одинаковыми именами):</h2>
+        {{ range $cluster, $diffs := .DiffSpecs }} <!-- Проходим по каждому элементу в DiffSpecs -->
+        {{ range $diff := $diffs }}
+        <table class="table">
+            <thead class="table-secondary">
+                <tr>
+                    <th>Services</th>
+                    <th>{{ .Cluster1 }} (spec1)</th>
+                    <th>{{ .Cluster2 }} (spec2)</th>
+                    <th>Diff</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-warning">
+                    <td>{{ .ServiceName }}</td>
+                    <td>{{ UnstructuredToJSON .SpecCluster1 }}</td>
+                    <td>{{ UnstructuredToJSON .SpecCluster2 }}</td>
+                    <td><pre>{{ .Difference | formatAsJSON }}</pre></td>
+                </tr>
+            </tbody>
+        </table>
+        {{ end }}
+        {{ end }}
+    </div>
+    <button onclick="window.history.back();" class="btn btn-primary">Назад</button>
+    <button onclick="window.location.href='/'" class="btn btn-primary">На главную</button>
+    <button onclick="window.location.href='/compare_cluster/services_json'" class="btn btn-primary">ServicesJson</button>
+    <button onclick="generatePDF();" class="btn btn-primary">Сохранить как PDF</button> <!-- Добавленная кнопка для генерации PDF -->
+    <script src="/static/main.js"></script>
+    <!-- Подключение библиотеки html2pdf.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    <script>
+        function generatePDF() {
+            var element = document.body;
+            var opt = {
+                margin: 1,
+                filename: 'ServicesCompare.pdf',
+                image: { type: 'jpeg', quality: 0.92 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'a2', orientation: 'landscape' }
+            };
+            html2pdf().from(element).set(opt).save();
+        }
+    </script>
+</body>
+</html>

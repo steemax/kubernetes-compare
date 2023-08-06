@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Результаты сравнения</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <h1 class="mb-3">Результаты сравнения</h1>
+    <table class="table">
+        <thead class="table-secondary">
+            <tr>
+                <th>ClusterName</th>
+                <th>Kubernetes</th>
+                <th>Nodes</th>
+                <th>Namespaces</th>
+                <th>CpuCore</th>
+                <th>MemoryGb</th>
+                <th>HddGb</th>
+                <th>Pods</th>
+                <th>ApiNum</th>
+                <th>Traefik</th>
+                <th>TraefikNum</th>
+                <th>Canary</th>
+                <th>CanaryNum</th>
+                <th>Jaeger</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range . }}
+                <tr>
+                    <td>{{ .ClusterName }}</td>
+                    <td>{{ .KubeVersion }}</td>
+                    <td>{{ .NodeCount }}</td>
+                    <td>{{ .NsCount }}</td>
+                    <td>{{ .CpuTotal }}</td>
+                    <td>{{ .MemTotal }}</td>
+                    <td>{{ .DiskTotal }}</td>
+                    <td>{{ .PodTotal }} </td>
+                    <td>{{ .ApiNums }} </td>
+                    <td>{{ .Traefik }} </td>
+                    <td>{{ .TraefikNum }} </td>
+                    <td>{{ .Flagger }} </td>
+                    <td>{{ .FlaggerNum }} </td>
+                    <td>{{ .Jaeger }} </td>
+                </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    <script src="/static/main.js"></script>
+    <button onclick="window.history.back();" class="btn btn-secondary mt-3">Назад</button>
+    <button onclick="window.location.href='/'" class="btn btn-primary mt-3">На главную</button>
+</body>
+</html>

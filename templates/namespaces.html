@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Выбор неймспейсов</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Выберите неймспейсы для кластеров {{ .Cluster1 }} и {{ .Cluster2 }}</h1>
+        <form action="/resources" method="post">
+            <div class="form-group">
+                <label for="namespace1">{{ .Cluster1 }} Неймспейс:</label>
+                <select id="namespace1" name="namespace1" class="form-control">
+                    {{ range .Namespaces1 }}
+                    <option value="{{ . }}">{{ . }}</option>
+                    {{ end }}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="namespace2">{{ .Cluster2 }} Неймспейс:</label>
+                <select id="namespace2" name="namespace2" class="form-control">
+                    {{ range .Namespaces2 }}
+                    <option value="{{ . }}">{{ . }}</option>
+                    {{ end }}
+                </select>
+            </div>
+            <input type="hidden" name="Cluster1" value="{{ .Cluster1 }}">
+            <input type="hidden" name="Cluster2" value="{{ .Cluster2 }}">
+            <button onclick="window.history.back();" class="btn btn-secondary mt-3">Назад</button>
+            <button onclick="window.location.href='/'" class="btn btn-primary mt-3">На главную</button>
+            <button type="submit" class="btn btn-primary mt-3">Далее</button>
+        </form>
+    </div>
+    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+

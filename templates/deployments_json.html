@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Deployments JSON</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Highlight.js CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <ul class="nav nav-tabs" id="clusterTabs">
+                {{range $cluster, $deploymentsMap := .}}
+                <li class="nav-item">
+                    <a class="nav-link" id="cluster-tab-{{$cluster}}" data-toggle="tab" href="#cluster-{{$cluster}}">{{$cluster}}</a>
+                </li>
+                {{end}}
+            </ul>
+
+            <div class="tab-content" id="clusterTabsContent">
+                {{range $cluster, $deploymentsMap := .}}
+                <div class="tab-pane fade" id="cluster-{{$cluster}}">
+                    <ul class="nav nav-tabs" id="deploymentsTabs-{{$cluster}}">
+                        {{range $deployments, $object := $deploymentsMap}}
+                        <li class="nav-item">
+                            <a class="nav-link" id="deployments-tab-{{$cluster}}-{{$deployments}}" data-toggle="tab" href="#deployments-{{$cluster}}-{{$deployments}}">{{$deployments}}</a>
+                        </li>
+                        {{end}}
+                    </ul>
+
+                    <div class="tab-content" id="deploymentsTabsContent-{{$cluster}}">
+                        {{range $deployments, $object := $deploymentsMap}}
+                        <div class="tab-pane fade" id="deployments-{{$cluster}}-{{$deployments}}">
+                            <!-- Wrap JSON output in <code> tag with class 'json' -->
+                            <pre><code class="json">{{toJSON $object}}</code></pre>
+                        </div>
+                        {{end}}
+                    </div>
+                </div>
+                {{end}}
+            </div>
+        </div>
+        
+        <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!-- Highlight.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+        <script>
+            // Activating first tab of each group
+            $(document).ready(function () {
+                $('#clusterTabs a:first').tab('show');
+                $('[id^="deploymentsTabs-"]').each(function () {
+                    $(this).find('a:first').tab('show');
+                });
+
+                // Highlight.js initialization
+                hljs.highlightAll();
+            });
+        </script>
+		<button onclick="window.history.back();" class="btn btn-primary">Назад</button>
+		<button onclick="window.location.href='/'" class="btn btn-primary">На главную</button>
+    </body>
+</html>

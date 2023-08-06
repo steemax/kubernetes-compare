@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Сравнение ресурсов Kubernetes</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Выберите два кластера для сравнения</h1>
+        <form action="/namespaces" method="post">
+            <div class="form-group">
+                <label for="cluster1">Кластер 1:</label>
+                <select id="cluster1" name="cluster1" class="form-control">
+                    {{ range $cluster, $configPath := . }}
+                    <option value="{{ $cluster }}">{{ $cluster }}</option>
+                    {{ end }}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cluster2">Кластер 2:</label>
+                <select id="cluster2" name="cluster2" class="form-control">
+                    {{ range $cluster, $configPath := . }}
+                    <option value="{{ $cluster }}">{{ $cluster }}</option>
+                    {{ end }}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Продолжить</button>
+            
+        </form>
+        <form action="/clear/selected/cluster/config/connections" method="post">
+            <button type="submit" class="btn btn-primary mt-3">Reset config</button>
+        </form>
+    </div>
+    
+    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
